@@ -1,0 +1,31 @@
+import React, { useEffect, useState } from "react";
+
+function RecipeList() {
+
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/recipes")
+      .then(res => res.json())
+      .then(data => setRecipes(data));
+  }, []);
+
+  return (
+    <div>
+      <h2>Healthy Recipes</h2>
+
+      {recipes.map(recipe => (
+        <div key={recipe._id}>
+          <h3>{recipe.name}</h3>
+          <p>Calories: {recipe.calories}</p>
+          <p>Protein: {recipe.protein} g</p>
+          <p>Carbs: {recipe.carbs} g</p>
+          <p>Fats: {recipe.fats} g</p>
+          <hr />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default RecipeList;
